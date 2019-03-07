@@ -33,5 +33,9 @@ function showItems(todoItem) {
   const clone = template.cloneNode(true);
   clone.querySelector("[data-header]").textContent = todoItem.header;
   clone.querySelector("[data-details]").textContent = todoItem.details;
+  clone.querySelector("[data-delete]").addEventListener("click", e => {
+    e.target.parentElement.remove();
+    deleteAlbum(album._id);
+  });
   document.querySelector("[data-container]").appendChild(clone);
 }
