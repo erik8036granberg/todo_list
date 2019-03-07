@@ -23,6 +23,15 @@ function get() {
     // Get data - format as jason
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      data.forEach(showItems);
     });
+}
+
+function showItems(todoItem) {
+  console.log("todoItems");
+  const template = document.querySelector("[data-template]").content;
+  const clone = template.cloneNode(true);
+  clone.querySelector("[data-header]").textContent = todoItem.header;
+  clone.querySelector("[data-details]").textContent = todoItem.details;
+  document.querySelector("[data-container]").appendChild(clone);
 }
