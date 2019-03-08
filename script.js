@@ -89,40 +89,73 @@ function showItems(item) {
   clone.querySelector("[data-details]").textContent = item.details;
   clone.querySelector("[data-id]").dataset.id = item._id;
   clone.querySelector("[data-delete]").addEventListener("click", e => {
-    // mouseevnt on click
-    console.log(e);
-    // finds mouse target (button) and delete its parent element (article)
-    e.target.parentElement.remove();
-    deleteItem(item._id);
+    const click = "deleteItem";
+    const title = item.title;
+    const details = item.details;
+    const id = item._id;
+    showModal(click, title, details, id);
   });
+  // clone.querySelector("[data-delete]").addEventListener("click", e => {
+  //   console.log(e);
+  //   e.target.parentElement.remove();
+  //   deleteItem(item._id);
+  // });
   document.querySelector("[data-container]").appendChild(clone);
 }
-
-document.querySelector("#itemForm").addEventListener("submit", e => {
-  console.log("submit");
-  e.preventDefault();
-  itemForm.elements.submit.disabled = true;
-
-  const newTitle = itemForm.elements.title.value;
-  const newDetails = itemForm.elements.details.value;
-  newItem = {
-    title: newTitle,
-    details: newDetails
-  };
-  postItem(newItem);
-  document.querySelector("#itemForm").reset();
-});
-
-// document.querySelector("#itemForm").addEventListener("submit", e => {
-//   console.log("add Item button");
-//   e.preventDefault();
-// });
 
 function mouseClick(event) {
   click = event.target.dataset.click;
 
   if (click === "addItem") {
     event.preventDefault();
-    alert("hoooo");
+    showModal(click);
   }
+}
+
+function showModal(click, title, details, id) {
+  console.log("showModal");
+  const modal = document.querySelector("#modal");
+  modal.classList.add("show");
+  document.querySelector("#close").addEventListener("click", closeModal);
+
+  if (click === "addItem") {
+    document.querySelector("#modal_content").innerHTML = `
+
+    <form id="itemForm">
+    <h2>Add todo-item</h2>
+    <label for=" title">Title</label>
+    <input type="text" name="title" id="title" placeholder="Bananas" required>
+    <label for="detalis">Detalis</label>
+    <input type="text" name="details" id="details" placeholder="The yellow ones" required>
+    <button type="submit" name="submit">Submit</button>
+    <button type="reset" value="Reset">Clear</button>
+    </form>`;
+
+    document.querySelector("#itemForm").addEventListener("submit", e => {
+      console.log("submit");
+      e.preventDefault();
+      itemForm.elements.submit.disabled = true;
+      const newTitle = itemForm.elements.title.value;
+      const newDetails = itemForm.elements.details.value;
+      newItem = {
+        title: newTitle,
+        details: newDetails
+      };
+      postItem(newItem);
+      closeModal();
+    });
+  }
+  if (click === "deleteItem") {
+    document.querySelector("#modal_content").innerHTML = `
+    <p class="bold">Do yout really want do delete:</p>
+    <p>${title}</p>
+    <p>${details}</p>
+
+    `;
+  }
+}
+
+function closeModal() {
+  modal.classList.remove("show");
+  document.querySelector("#modal_content").innerHTML = "";
 }

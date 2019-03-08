@@ -6,3 +6,26 @@ body {
     margin: 0;
     padding: 0;
 }
+
+#modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    transition: 1s;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    z-index: 500;
+}
+
+#modal.show {
+    opacity: 1;
+    transition: 0.5s;
+    pointer-events: all;
+}
+
+.bold {
+    font-weight: bold;
+}
