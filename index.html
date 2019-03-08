@@ -1,36 +1,34 @@
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>To-do list</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <main>
-        <button id="additem" data-click="addItem">Add task</button>
-        <section data-container></section>
+      <button id="additem" data-click="addItem">Add task</button>
+      <section data-container></section>
     </main>
 
-
     <div id="modal">
-        <div id="modal-wrapper">
-            <button id="close">Close</button>
-            <div id="modal_content"></div>
-        </div>
+      <div id="modal-wrapper">
+        <button id="close">Close</button>
+        <div id="modal_content"></div>
+      </div>
     </div>
 
     <template data-template>
-        <article data-id>
-            <h3 data-title></h3>
-            <p data-details></p>
-            <button data-delete>Done</button>
-        </article>
+      <article data-id>
+        <h3 data-title></h3>
+        <p data-details></p>
+        <button data-delete>Done</button>
+      </article>
     </template>
 
-
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
