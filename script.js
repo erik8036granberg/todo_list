@@ -89,17 +89,9 @@ function showItems(item) {
   clone.querySelector("[data-details]").textContent = item.details;
   clone.querySelector("[data-id]").dataset.id = item._id;
   clone.querySelector("[data-delete]").addEventListener("click", e => {
-    const click = "deleteItem";
-    const title = item.title;
-    const details = item.details;
-    const id = item._id;
-    showModal(click, title, details, id);
+    deleteItemModal(item.title, item.details, item._id);
   });
-  // clone.querySelector("[data-delete]").addEventListener("click", e => {
-  //   console.log(e);
-  //   e.target.parentElement.remove();
-  //   deleteItem(item._id);
-  // });
+  // clone.
   document.querySelector("[data-container]").appendChild(clone);
 }
 
@@ -108,54 +100,72 @@ function mouseClick(event) {
 
   if (click === "addItem") {
     event.preventDefault();
-    showModal(click);
+    addItemModal();
   }
 }
 
-function showModal(click, title, details, id) {
-  console.log("showModal");
-  const modal = document.querySelector("#modal");
+function addItemModal() {
+  console.log("addItemModal");
   modal.classList.add("show");
+  document.querySelector("#modal").classList.add("show");
   document.querySelector("#close").addEventListener("click", closeModal);
-
-  if (click === "addItem") {
-    document.querySelector("#modal_content").innerHTML = `
+  document.querySelector("#modal_content").innerHTML = `
 
     <form id="itemForm">
-    <h2>Add todo-item</h2>
+    <h2>Add new task</h2>
     <label for=" title">Title</label>
-    <input type="text" name="title" id="title" placeholder="Bananas" required>
-    <label for="detalis">Detalis</label>
-    <input type="text" name="details" id="details" placeholder="The yellow ones" required>
+    <input type="text" name="title" id="title" placeholder="Bananas" required><br>
+    <label for="detalis">Details</label>
+    <input type="text" name="details" id="details" placeholder="The yellow ones" required><br><br>
     <button type="submit" name="submit">Submit</button>
-    <button type="reset" value="Reset">Clear</button>
+    <button type="reset" data-delete_cancel>Cancel</button>
     </form>`;
 
-    document.querySelector("#itemForm").addEventListener("submit", e => {
-      console.log("submit");
-      e.preventDefault();
-      itemForm.elements.submit.disabled = true;
-      const newTitle = itemForm.elements.title.value;
-      const newDetails = itemForm.elements.details.value;
-      newItem = {
-        title: newTitle,
-        details: newDetails
-      };
-      postItem(newItem);
+  document.querySelector("#itemForm").addEventListener("submit", e => {
+    console.log("submit");
+    e.preventDefault();
+    itemForm.elements.submit.disabled = true;
+    const newTitle = itemForm.elements.title.value;
+    const newDetails = itemForm.elements.details.value;
+    newItem = {
+      title: newTitle,
+      details: newDetails
+    };
+    postItem(newItem);
+    closeModal();
+  });
+  document
+    .querySelector("[data-delete_cancel]")
+    .addEventListener("click", e => {
       closeModal();
     });
-  }
-  if (click === "deleteItem") {
-    document.querySelector("#modal_content").innerHTML = `
-    <p class="bold">Do yout really want do delete:</p>
+}
+
+function deleteItemModal(title, details, id) {
+  console.log("deleteItemModal");
+  document.querySelector("#modal").classList.add("show");
+  document.querySelector("#close").addEventListener("click", closeModal);
+
+  document.querySelector("#modal_content").innerHTML = `
+    <p class="bold">All done?:</p>
     <p>${title}</p>
     <p>${details}</p>
-
+    <button data-delete_ok>Yes</button>
+    <button data-delete_cancel>Not yet</button>
     `;
-  }
+  document.querySelector("[data-delete_ok]").addEventListener("click", e => {
+    event.preventDefault();
+    document.querySelector("[data-id='" + id + "']").remove();
+    deleteItem(id);
+    closeModal();
+  });
+  document
+    .querySelector("[data-delete_cancel]")
+    .addEventListener("click", e => {
+      closeModal();
+    });
 }
 
 function closeModal() {
-  modal.classList.remove("show");
-  document.querySelector("#modal_content").innerHTML = "";
+  document.querySelector("#modal").classList.remove("show");
 }
