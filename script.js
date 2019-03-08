@@ -44,7 +44,6 @@ function postItem(newItem) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       items.push(data);
       sortItems(items);
     });
@@ -63,6 +62,7 @@ function deleteItem(id) {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      console.log(items);
     });
 
 }
@@ -163,8 +163,8 @@ function deleteItemModal(title, details, id) {
     `;
   document.querySelector("[data-delete_ok]").addEventListener("click", e => {
     event.preventDefault();
-    items = items.filter(function (item) {
-      return item.id != id;
+    items = items.filter(function (obj) {
+      return obj._id !== id;
     });
     console.log("Is id gone now?")
     console.log(items);
