@@ -8,17 +8,27 @@
 </head>
 
 <body>
-    <main data-container></main>
+    <main>
+        <button id="additem" data-click="addItem">Add item</button>
+        <section data-container></section>
+    </main>
 
-    <form id="itemForm">
-        <h2>Add new Album</h2>
-        <label for=" title">Title</label>
-        <input type="text" name="title" id="title" placeholder="Bananas" required>
-        <label for="detalis">Detalis</label>
-        <input type="text" name="details" id="details" placeholder="The yellow ones" required>
-        <button type="submit" name="submit">Submit</button>
-        <button type="reset" value="Reset">Clear</button>
-    </form>
+
+    <div id="modal">
+        <div id="modal-content">
+
+            <form id="itemForm">
+                <h2>Add todo-item</h2>
+                <label for=" title">Title</label>
+                <input type="text" name="title" id="title" placeholder="Bananas" required>
+                <label for="detalis">Detalis</label>
+                <input type="text" name="details" id="details" placeholder="The yellow ones" required>
+                <button type="submit" name="submit">Submit</button>
+                <button type="reset" value="Reset">Clear</button>
+            </form>
+
+        </div>
+    </div>
 
     <template data-template>
         <article data-id>
@@ -27,6 +37,7 @@
             <button data-delete>Delete</button>
         </article>
     </template>
+
 
     <script src="script.js"></script>
 </body>
