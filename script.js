@@ -1,14 +1,17 @@
 "use strict";
 
 let newItem;
+let doneItem;
 let click;
 let items = [];
+let doneItems = [];
 
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   console.log("init");
   getItems();
+  getDoneItems();
   document.querySelector("body").addEventListener("click", mouseClick);
 }
 
@@ -63,11 +66,53 @@ function deleteItem(id) {
     .then(data => {
       console.log(data);
       console.log(items);
+      // doneItem = data;
+      // doneItems.push(doneItem);
+      // postDoneItem(doneItem);
       if (items.length === 0) {
         document.querySelector("[data-container]").innerHTML = `
         <div class="no_tasks">Nice! All tasks are done...</div>
         `;
       }
+    });
+}
+
+function getDoneItems() {
+  console.log("getDoneItems");
+  fetch("https://todolist-f2b2.restdb.io/rest/doneitems?metafields=true&max=10", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-apikey": "5c813fa1cac6621685acbc7f",
+        "cache-control": "no-cache"
+      }
+    })
+    //   format as jason & send to sort
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      doneItems = data;
+      // sortItems(doneItems);
+    });
+}
+
+function postDoneItem(doneItem) {
+  console.log("postDoneItem");
+  console.log(doneItem);
+
+  fetch("https://todolist-f2b2.restdb.io/rest/doneitems", {
+      method: "post",
+      body: JSON.stringify(doneItem),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-apikey": "5c813fa1cac6621685acbc7f",
+        "cache-control": "no-cache"
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      doneItems.push(data);
+      // sortItems(items);
     });
 }
 
@@ -99,7 +144,7 @@ function showItems(item) {
   clone.querySelector("[data-id]").dataset.id = item._id;
   clone.querySelector("[data-delete]").addEventListener("click", e => {
     e.preventDefault();
-    deleteItemModal(item.title, item.details, item._id);
+    deleteItemModal(item);
   });
   // clone.
   document.querySelector("[data-container]").appendChild(clone);
@@ -150,8 +195,11 @@ function addItemModal() {
     });
 }
 
-function deleteItemModal(title, details, id) {
+function deleteItemModal(item) {
   console.log("deleteItemModal");
+  const id = item._id;
+  const title = item.title;
+  const details = item.details;
   console.log(id);
   document.querySelector("#modal").classList.add("show");
   document.querySelector("#close").addEventListener("click", closeModal);
@@ -170,6 +218,13 @@ function deleteItemModal(title, details, id) {
     console.log("Is id gone now?")
     console.log(items);
     document.querySelector("[data-id='" + id + "']").remove();
+    const doneTitle = item.title;
+    const doneDetails = item.details;
+    doneItem = {
+      title: doneTitle,
+      details: doneDetails
+    };
+    postDoneItem(doneItem);
     deleteItem(id);
     console.log(id);
     closeModal();
