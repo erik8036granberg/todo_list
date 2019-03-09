@@ -21,13 +21,13 @@ function init() {
 function getItems() {
   console.log("getItems");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems?metafields=true", {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "get",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     //   format as jason & send to sort
     .then(res => res.json())
     .then(data => {
@@ -40,14 +40,14 @@ function getItems() {
 function postItem(newItem) {
   console.log("postItem");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems", {
-      method: "post",
-      body: JSON.stringify(newItem),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "post",
+    body: JSON.stringify(newItem),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       items.push(data);
@@ -58,13 +58,13 @@ function postItem(newItem) {
 function deleteItem(id) {
   console.log("deleteItem");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems/" + id, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       console.log(data);
@@ -83,15 +83,16 @@ function deleteItem(id) {
 function getDoneItems() {
   console.log("getDoneItems");
   fetch(
-      "https://todolist-f2b2.restdb.io/rest/doneitems?metafields=true&max=10", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "x-apikey": "5c813fa1cac6621685acbc7f",
-          "cache-control": "no-cache"
-        }
+    "https://todolist-f2b2.restdb.io/rest/doneitems?metafields=true&max=10",
+    {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-apikey": "5c813fa1cac6621685acbc7f",
+        "cache-control": "no-cache"
       }
-    )
+    }
+  )
     //   format as jason & send to sort
     .then(res => res.json())
     .then(data => {
@@ -106,14 +107,14 @@ function postDoneItem(doneItem) {
   console.log(doneItem);
 
   fetch("https://todolist-f2b2.restdb.io/rest/doneitems", {
-      method: "post",
-      body: JSON.stringify(doneItem),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "post",
+    body: JSON.stringify(doneItem),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       doneItems.push(data);
@@ -132,7 +133,7 @@ function mouseClick(event) {
   if (click === "showTasks") {
     event.preventDefault();
     showTasks = true;
-    sortItems(items)
+    sortItems(items);
   }
   if (click === "showDone") {
     console.log("showDone clicked");
@@ -149,7 +150,6 @@ function sortItems(activeitems) {
   console.log("sortItems");
   console.log(showTasks);
   if (activeitems.length === 0) {
-
     if (showTasks === true) {
       document.querySelector("[data-container]").innerHTML = `
     <div class="no_tasks">Nice! All tasks are done...</div>`;
@@ -158,7 +158,7 @@ function sortItems(activeitems) {
       <div class="no_tasks">You have no completed tasks...</div>`;
     }
   } else {
-    activeitems.sort(function (a, z) {
+    activeitems.sort(function(a, z) {
       if (a._created < z._created) {
         return 1;
       } else {
@@ -250,7 +250,7 @@ function deleteItemModal(item) {
     `;
   document.querySelector("#delete_ok").addEventListener("click", e => {
     event.preventDefault();
-    items = items.filter(function (item) {
+    items = items.filter(function(item) {
       return item._id !== id;
     });
     console.log("Is id gone now?");
