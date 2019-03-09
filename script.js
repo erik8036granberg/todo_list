@@ -63,6 +63,11 @@ function deleteItem(id) {
     .then(data => {
       console.log(data);
       console.log(items);
+      if (items.length === 0) {
+        document.querySelector("[data-container]").innerHTML = `
+        <div class="no_tasks">Nice! All tasks are done...</div>
+        `;
+      }
     });
 
 }
@@ -139,6 +144,8 @@ function addItemModal() {
       details: newDetails
     };
     postItem(newItem);
+    document.querySelector("[data-container]").innerHTML = "";
+
     closeModal();
   });
   document
@@ -155,7 +162,7 @@ function deleteItemModal(title, details, id) {
   document.querySelector("#close").addEventListener("click", closeModal);
 
   document.querySelector("#modal_content").innerHTML = `
-    <p class="bold">Really done with this?</p>
+    <p class="bold">All done?</p>
     <p>${title}</p>
     <p>${details}</p>
     <button data-delete_ok>Absolutly</button>
