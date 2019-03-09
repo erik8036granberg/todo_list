@@ -9,8 +9,10 @@
   </head>
 
   <body>
+    <header>
+      <nav><button id="additem" data-click="addItem">Add task</button></nav>
+    </header>
     <main>
-      <button id="additem" data-click="addItem">Add task</button>
       <section data-container></section>
     </main>
 
@@ -25,7 +27,7 @@
       <article data-id>
         <h3 data-title></h3>
         <p data-details></p>
-        <button data-delete>Done</button>
+        <button id="done">Done</button>
       </article>
     </template>
 

@@ -18,13 +18,13 @@ function init() {
 function getItems() {
   console.log("getItems");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems?metafields=true", {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "get",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     //   format as jason & send to sort
     .then(res => res.json())
     .then(data => {
@@ -37,14 +37,14 @@ function getItems() {
 function postItem(newItem) {
   console.log("postItem");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems", {
-      method: "post",
-      body: JSON.stringify(newItem),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "post",
+    body: JSON.stringify(newItem),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       items.push(data);
@@ -55,13 +55,13 @@ function postItem(newItem) {
 function deleteItem(id) {
   console.log("deleteItem");
   fetch("https://todolist-f2b2.restdb.io/rest/todoitems/" + id, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       console.log(data);
@@ -79,14 +79,17 @@ function deleteItem(id) {
 
 function getDoneItems() {
   console.log("getDoneItems");
-  fetch("https://todolist-f2b2.restdb.io/rest/doneitems?metafields=true&max=10", {
+  fetch(
+    "https://todolist-f2b2.restdb.io/rest/doneitems?metafields=true&max=10",
+    {
       method: "get",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "x-apikey": "5c813fa1cac6621685acbc7f",
         "cache-control": "no-cache"
       }
-    })
+    }
+  )
     //   format as jason & send to sort
     .then(res => res.json())
     .then(data => {
@@ -101,14 +104,14 @@ function postDoneItem(doneItem) {
   console.log(doneItem);
 
   fetch("https://todolist-f2b2.restdb.io/rest/doneitems", {
-      method: "post",
-      body: JSON.stringify(doneItem),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "x-apikey": "5c813fa1cac6621685acbc7f",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "post",
+    body: JSON.stringify(doneItem),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": "5c813fa1cac6621685acbc7f",
+      "cache-control": "no-cache"
+    }
+  })
     .then(res => res.json())
     .then(data => {
       doneItems.push(data);
@@ -123,7 +126,7 @@ function sortItems(items) {
     <div class="no_tasks">Nice! All tasks are done...</div>
     `;
   } else {
-    items.sort(function (a, z) {
+    items.sort(function(a, z) {
       if (a._created < z._created) {
         return 1;
       } else {
@@ -142,7 +145,7 @@ function showItems(item) {
   clone.querySelector("[data-title]").textContent = item.title;
   clone.querySelector("[data-details]").textContent = item.details;
   clone.querySelector("[data-id]").dataset.id = item._id;
-  clone.querySelector("[data-delete]").addEventListener("click", e => {
+  clone.querySelector("#done").addEventListener("click", e => {
     e.preventDefault();
     deleteItemModal(item);
   });
@@ -172,7 +175,7 @@ function addItemModal() {
     <label for="detalis">Details</label>
     <input type="text" name="details" id="details" placeholder="Some more stuff about it..." required><br><br>
     <button type="submit" name="submit">Add</button>
-    <button type="reset" data-delete_cancel>Cancel</button>
+    <button type="reset" class="cancel">Cancel</button>
     </form>`;
 
   document.querySelector("#itemForm").addEventListener("submit", e => {
@@ -188,11 +191,9 @@ function addItemModal() {
     document.querySelector("[data-container]").innerHTML = "";
     closeModal();
   });
-  document
-    .querySelector("[data-delete_cancel]")
-    .addEventListener("click", e => {
-      closeModal();
-    });
+  document.querySelector(".cancel").addEventListener("click", e => {
+    closeModal();
+  });
 }
 
 function deleteItemModal(item) {
@@ -207,15 +208,15 @@ function deleteItemModal(item) {
     <p class="bold">All done?</p>
     <p>${title}</p>
     <p>${details}</p>
-    <button data-delete_ok>Absolutly</button>
-    <button data-delete_cancel>Not yet</button>
+    <button id="delete_ok">Absolutly</button>
+    <button class="cancel">Not yet</button>
     `;
-  document.querySelector("[data-delete_ok]").addEventListener("click", e => {
+  document.querySelector("#delete_ok").addEventListener("click", e => {
     event.preventDefault();
-    items = items.filter(function (item) {
+    items = items.filter(function(item) {
       return item._id !== id;
     });
-    console.log("Is id gone now?")
+    console.log("Is id gone now?");
     console.log(items);
     document.querySelector("[data-id='" + id + "']").remove();
     const doneTitle = item.title;
@@ -229,11 +230,9 @@ function deleteItemModal(item) {
     console.log(id);
     closeModal();
   });
-  document
-    .querySelector("[data-delete_cancel]")
-    .addEventListener("click", e => {
-      closeModal();
-    });
+  document.querySelector(".cancel").addEventListener("click", e => {
+    closeModal();
+  });
 }
 
 function closeModal() {
