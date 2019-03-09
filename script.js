@@ -69,7 +69,6 @@ function deleteItem(id) {
         `;
       }
     });
-
 }
 
 function sortItems(items) {
@@ -108,7 +107,6 @@ function showItems(item) {
 
 function mouseClick(event) {
   click = event.target.dataset.click;
-
   if (click === "addItem") {
     event.preventDefault();
     addItemModal();
@@ -135,17 +133,14 @@ function addItemModal() {
   document.querySelector("#itemForm").addEventListener("submit", e => {
     e.preventDefault();
     console.log("submit");
-
     const newTitle = itemForm.elements.title.value;
     const newDetails = itemForm.elements.details.value;
-
     newItem = {
       title: newTitle,
       details: newDetails
     };
     postItem(newItem);
     document.querySelector("[data-container]").innerHTML = "";
-
     closeModal();
   });
   document
@@ -160,7 +155,6 @@ function deleteItemModal(title, details, id) {
   console.log(id);
   document.querySelector("#modal").classList.add("show");
   document.querySelector("#close").addEventListener("click", closeModal);
-
   document.querySelector("#modal_content").innerHTML = `
     <p class="bold">All done?</p>
     <p>${title}</p>
@@ -170,8 +164,8 @@ function deleteItemModal(title, details, id) {
     `;
   document.querySelector("[data-delete_ok]").addEventListener("click", e => {
     event.preventDefault();
-    items = items.filter(function (obj) {
-      return obj._id !== id;
+    items = items.filter(function (item) {
+      return item._id !== id;
     });
     console.log("Is id gone now?")
     console.log(items);
