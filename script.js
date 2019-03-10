@@ -133,15 +133,27 @@ function mouseClick(event) {
   if (click === "showTasks") {
     event.preventDefault();
     showTasks = true;
+    document.querySelector("#showtasks").classList.add("active");
+    document.querySelector("#showtasks").classList.remove("inactive");
+    document.querySelector("#showdone").classList.add("inactive");
+    document.querySelector("#showdone").classList.remove("active");
     sortItems(items);
   }
   if (click === "showDone") {
     console.log("showDone clicked");
     event.preventDefault();
     showTasks = false;
+    document.querySelector("#showdone").classList.add("active");
+    document.querySelector("#showdone").classList.remove("inactive");
+    document.querySelector("#showtasks").classList.add("inactive");
+    document.querySelector("#showtasks").classList.remove("active");
     console.log(showTasks);
     sortItems(doneItems);
   }
+}
+
+function togglactive() {
+  element.classList.toggle("mystyle");
 }
 
 // - - - - - - - - - - - - - sort - - - - - - - - - - - - -

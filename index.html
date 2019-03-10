@@ -6,32 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>To-do list</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <img class="logo" src="images/doitnow.svg" alt="doitnow logo">
-      <nav>
-        <button id="showtasks" data-click="showTasks">Tasks</button>
-        <button id="showdone" data-click="showDone">Done</button>
-        <button id="additem" data-click="addItem">+ Add task</button>
-      </nav>
-    </header>
-    <main>
-      <section data-container></section>
-    </main>
-
-    <div id="modal">
-      <div id="modal-wrapper">
-        <button id="close">Close</button>
-        <div id="modal_content"></div>
-      </div>
-    </div>
+  <div class="container"></div>
+  <header>
+    <img class="logo" src="images/doitnow.svg" alt="doitnow logo">
+    <nav>
+      <button id="showtasks" class="active" data-click="showTasks">Tasks</button>
+      <button id="showdone" class="inactive" data-click="showDone">Done</button>
+      <button id="additem" data-click="addItem"></button>
+    </nav>
+  </header>
+  <main>
+    <section data-container></section>
+  </main>
 
   </div>
   <!-- container-end -->
+
+  <div id="modal">
+    <div id="modal-wrapper">
+      <button id="close">Close</button>
+      <div id="modal_content"></div>
+    </div>
+  </div>
 
   <template data-template>
     <article data-id>
