@@ -69,14 +69,6 @@ function deleteItem(id) {
     .then(data => {
       console.log(data);
       console.log(items);
-      // doneItem = data;
-      // doneItems.push(doneItem);
-      // postDoneItem(doneItem);
-      if (items.length === 0) {
-        document.querySelector("[data-container]").innerHTML = `
-        <div class="no_tasks">Nice! All tasks are done...</div>
-        `;
-      }
     });
 }
 
@@ -150,10 +142,6 @@ function mouseClick(event) {
     console.log(showTasks);
     sortItems(doneItems);
   }
-}
-
-function togglactive() {
-  element.classList.toggle("mystyle");
 }
 
 // - - - - - - - - - - - - - sort - - - - - - - - - - - - -

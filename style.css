@@ -43,6 +43,7 @@ nav button {
   transition: 0.5s;
   font-weight: bold;
   background-color: var(--main-color);
+  cursor: pointer;
 }
 
 nav button:last-child:hover {
@@ -68,13 +69,24 @@ nav button.inactive {
 nav button.active {
   color: var(--main-color);
   background: rgb(255, 255, 255);
+  position: relative;
 }
+
+nav button.active::before {
+  position: absolute;
+  content: url(images/pointer.svg);
+  width: 2rem;
+  top: 2.75rem;
+  pointer-events: none;
+}
+
 
 nav button:hover {
   background-color: var(--main-color-light);
 }
 
 nav button.inactive:hover {
+  background-color: var(--main-color-light);
   color: var(--main-color);
 }
 
@@ -84,11 +96,6 @@ nav button.inactive {
   border: 1px solid;
   border-color: var(--main-color-light);
 }
-
-
-
-
-
 
 
 #modal {
@@ -110,8 +117,4 @@ nav button.inactive {
 
 .bold {
   font-weight: bold;
-}
-
-.inactive {
-  opacity: 0.5;
 }
