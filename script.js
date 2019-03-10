@@ -200,16 +200,16 @@ function addItemModal() {
   document.querySelector("#close").addEventListener("click", closeModal);
   document.querySelector("#modal_content").innerHTML = `
 
-    <form id="itemForm">
+    <form id="itemForm" autocomplete="off" onsubmit="return validateForm()" novalidate>
     <h2>Add new task</h2>
     <label for=" title">Title</label>
     <input type="text" name="title" id="title" placeholder="What to do?" required><br>
     <label for="detalis">Details</label>
-    <input type="text" name="details" id="details" placeholder="Some more stuff about it..." required><br><br>
-    <button type="submit" name="submit">Add</button>
+    <input type="text" name="details" id="details" placeholder="Some more stuff about it..."><br><br>
+    <button type="submit" id="addButton" name="submit" disabled>Add</button>
     <button type="reset" class="cancel">Cancel</button>
     </form>`;
-
+  validateForm();
   document.querySelector("#itemForm").addEventListener("submit", e => {
     e.preventDefault();
     console.log("submit");
@@ -271,4 +271,18 @@ function deleteItemModal(item) {
 
 function closeModal() {
   document.querySelector("#modal").classList.remove("show");
+}
+
+function validateForm() {
+  const checkForm = document.querySelector("#itemForm");
+  const checkButton = document.querySelector("#addButton");
+  itemForm.elements.title.addEventListener("blur", e => {
+    if (itemForm.elements.title.checkValidity()) {
+      console.log("yes");
+      checkButton.disabled = false;
+    } else {
+      console.log("No");
+      checkButton.disabled = true;
+    }
+  })
 }
