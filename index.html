@@ -10,23 +10,28 @@
 </head>
 
 <body>
-  <header>
-    <nav>
-      <button id="showtasks" data-click="showTasks">Tasks</button>
-      <button id="showdone" data-click="showDone">Done</button>
-      <button id="additem" data-click="addItem">+ Add task</button>
-    </nav>
-  </header>
-  <main>
-    <section data-container></section>
-  </main>
+  <div class="container">
+    <header>
+      <img class="logo" src="images/doitnow.svg" alt="doitnow logo">
+      <nav>
+        <button id="showtasks" data-click="showTasks">Tasks</button>
+        <button id="showdone" data-click="showDone">Done</button>
+        <button id="additem" data-click="addItem">+ Add task</button>
+      </nav>
+    </header>
+    <main>
+      <section data-container></section>
+    </main>
 
-  <div id="modal">
-    <div id="modal-wrapper">
-      <button id="close">Close</button>
-      <div id="modal_content"></div>
+    <div id="modal">
+      <div id="modal-wrapper">
+        <button id="close">Close</button>
+        <div id="modal_content"></div>
+      </div>
     </div>
+
   </div>
+  <!-- container-end -->
 
   <template data-template>
     <article data-id>
