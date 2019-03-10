@@ -167,3 +167,27 @@ details {
   opacity: 1;
   pointer-events: all;
 }
+
+input,
+details {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0.5rem;
+  margin: 0 0.5rem 0 0;
+  border-radius: 0.5rem;
+}
+
+input:focus {
+  border: solid 3px var(--main-color);
+  outline: 0;
+}
+
+.missing {
+  border: solid 3px red;
+  outline: 0;
+}
+
+#details {
+  resize: vertical;
+  min-height: 3rem;
+}

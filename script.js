@@ -200,12 +200,12 @@ function addItemModal() {
   document.querySelector("#close").addEventListener("click", closeModal);
   document.querySelector("#modal_content").innerHTML = `
 
-    <form id="itemForm" autocomplete="off" onsubmit="return validateForm()" novalidate>
+    <form id="itemForm" autocomplete="off" novalidate>
     <h2>Add new task</h2>
     <label for=" title">Title</label>
-    <input type="text" name="title" id="title" placeholder="What to do?" required><br>
+    <input type="text" name="title" id="title" required><span></span><br>
     <label for="detalis">Details</label>
-    <input type="text" name="details" id="details" placeholder="Some more stuff about it..."><br><br>
+    <textarea name="details" id="details">Enter text here...</textarea><br><br>
     <button type="submit" id="addButton" name="submit" disabled>Add</button>
     <button type="reset" class="cancel">Cancel</button>
     </form>`;
@@ -276,13 +276,15 @@ function closeModal() {
 function validateForm() {
   const checkForm = document.querySelector("#itemForm");
   const checkButton = document.querySelector("#addButton");
-  itemForm.elements.title.addEventListener("blur", e => {
+  checkForm.elements.title.addEventListener("blur", e => {
     if (itemForm.elements.title.checkValidity()) {
       console.log("yes");
       checkButton.disabled = false;
+      checkForm.elements.title.classList.remove("missing");
     } else {
       console.log("No");
       checkButton.disabled = true;
+      checkForm.elements.title.classList.add("missing");
     }
   })
 }
