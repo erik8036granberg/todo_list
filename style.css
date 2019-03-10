@@ -5,6 +5,12 @@
 
 * {
   box-sizing: border-box;
+
+}
+
+/* watch out for accecebility */
+*:focus {
+  outline: 0;
 }
 
 body {
@@ -13,7 +19,6 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
 img {
   width: 100%;
   height: auto;
@@ -21,10 +26,6 @@ img {
 
 header {
   background-color: var(--main-color);
-  padding: 1.5rem;
-}
-
-header {
   padding: 1.5rem;
 }
 
@@ -118,17 +119,17 @@ article {
   padding: 1.5rem;
 }
 
-.list_header {
-  font-size: 1.25rem;
-  margin: 0;
+article:hover {
+  color: var(--main-color);
 }
 
-.list_header:hover {
-  color: var(--main-color);
+.list_header {
+  font-size: 1.25rem;
 }
 
 article p::before {
   content: "Details: ";
+  color: var(--main-color);
 }
 
 /* Todo: change color in SVG and not image switch */
@@ -144,6 +145,10 @@ article button {
 
 article button:hover {
   background: transparent url(images/done_hover.svg);
+}
+
+details {
+  margin: 0 0 0.25rem;
 }
 
 #modal {
