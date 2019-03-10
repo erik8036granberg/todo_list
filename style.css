@@ -24,6 +24,11 @@ header {
   padding: 1.5rem;
 }
 
+header,
+article {
+  padding: 1.5rem;
+}
+
 header .logo {
   max-width: 15rem;
 }
@@ -97,6 +102,24 @@ nav button.inactive {
   border-color: var(--main-color-light);
 }
 
+.bold {
+  font-weight: bold;
+}
+
+article {
+  background: rgb(255, 255, 255);
+  border-bottom: 1px solid;
+  border-color: rgb(0, 0, 0);
+}
+
+article h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+article p {
+  margin: 0;
+}
 
 #modal {
   width: 100vw;
@@ -113,8 +136,4 @@ nav button.inactive {
 #modal.show {
   opacity: 1;
   pointer-events: all;
-}
-
-.bold {
-  font-weight: bold;
 }
